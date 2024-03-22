@@ -35,7 +35,15 @@
 
 <script>
 
+    // Логика следующая:
+    // 1. Получаем данные из new Date(...), в том числе определяем количество дней в данном месяце,
+    // день недели первого дня месяца.
+    // 2. Исходя из этих данных строим таблицу
+
 export default {
+
+    // Пропс с датой из родительского компонента
+    
     props: {
     propDate: {
       type: String,
@@ -125,17 +133,25 @@ export default {
 
             //Здесь расчет таблицы, конечно, он требует оптимизации,
             //так как много переиспользуемого кода.
-    
+            //Возможно циклами, возможно рекурсией
+
+
+            // Считаем дни
             let count = 0
+
+            //Заполняем пустыми строками ячейки до первого дня месяца
             for (let i = 0; i < 7; i++) {
                 if (i < this.firstDayOnMonth) {
                     this.calendarRows[0].push('')
                 }
+
+            //Далее заполняем оставшуюся часть строки и считаем count
                 else {
                     count++
                     this.calendarRows[0].push(count)
                 }
             }
+            // Заполняем остальные строки
             for (let i = 0; i < 7; i++) {
                 count++
                 this.calendarRows[1].push(count)
@@ -155,10 +171,12 @@ export default {
                 count++
                 this.calendarRows[4].push(count)
             }
+            //Заполняем последнюю строку, если count меньше кол-ва дней в данном месяце
             while (count < this.daysOnMonth) {
                 count++
                 this.calendarRows[5].push(count)
             }
+            //Если последняя неделя(строка) пустая - удаляем последнюю строку
             if(this.calendarRows[5].length===0) {
                 this.calendarRows.pop()
             }
