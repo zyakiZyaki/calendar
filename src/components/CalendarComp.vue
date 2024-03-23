@@ -34,7 +34,10 @@
         </tbody>
     </table>
 
-    <input v-model="date" type="date" @keydown.enter="changeDate()">
+    <input
+        v-model="date"
+        type="date"
+        @keydown.enter="changeDate()">
 
 </template>
 
