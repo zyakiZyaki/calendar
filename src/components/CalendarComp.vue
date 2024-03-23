@@ -3,8 +3,7 @@
         <div
             v-for="item in lang"
             :key="item"
-            @click="changeLanguage(item)"
-        >
+            @click="changeLanguage(item)">
         {{ item }}</div>
     </div>
     <table>
@@ -24,13 +23,11 @@
         <tbody>
             <tr
                 v-for="key in calendarRows.keys()"
-                :key="key"
-            >
+                :key="key">
                 <td
                     v-for="(day, index) in calendarRows[key]"
                     :key="index"
-                    @click="clickCell(day)"
-                >
+                    @click="clickCell(day)">
                     {{ day }}
                 </td>
             </tr>
