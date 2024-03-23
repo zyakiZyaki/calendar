@@ -121,6 +121,8 @@ export default {
 
             this.createNullRows()
 
+            //Нормализированные данные для вывода в хэдере таблицы
+
             this.newDate = {
                 day: this.normalizeDate.getDay(),
                 month: this.month,
@@ -134,8 +136,12 @@ export default {
 
             //Здесь расчет таблицы, конечно, он требует оптимизации,
             //так как много переиспользуемого кода.
+            // Можно сделать как циклами, так и рекурсивно.
 
             let count = 0
+
+            //Заполняем ячейки конца прошлого месяца до дня недели 1 числа нашего месяца.
+            // Далее включаем счетчик и добавляем оставшиеся дни в первую неделю.
             for (let i = 0; i < 7; i++) {
                 if (i < this.firstDayOnMonth) {
                     this.calendarRows[0].push('')
@@ -145,6 +151,7 @@ export default {
                     this.calendarRows[0].push(count)
                 }
             }
+            // Три недели аналогичным образом заполняем днями по счетчику.
             for (let i = 0; i < 7; i++) {
                 count++
                 this.calendarRows[1].push(count)
@@ -157,6 +164,8 @@ export default {
                 count++
                 this.calendarRows[3].push(count)
             }
+            
+            // Заполняем неделю. Если счетчик становится равен кол-ву дней в месяце выходим из цикла.
             for (let i = 0; i < 7; i++) {
                 if (count === this.daysOnMonth) {
                     break
@@ -164,10 +173,14 @@ export default {
                 count++
                 this.calendarRows[4].push(count)
             }
+            
+            // Заполняем пока счетчик не сравняется с кол-вом дней в месяце.
             while (count < this.daysOnMonth) {
                 count++
                 this.calendarRows[5].push(count)
             }
+
+            // Если последняя неделя пуста - удаляем ее из массива недель(строки календаря)
             if (this.calendarRows[5].length === 0) {
                 this.calendarRows.pop()
             }
@@ -190,9 +203,6 @@ export default {
         month() {
             return this.normalizeDate.getMonth()
         }
-    },
-
-    watch: {
     }
 }
 
