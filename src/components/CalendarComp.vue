@@ -73,7 +73,7 @@ export default {
     created() {
 
         //Проверяем пришел ли пропс, если нет берем сегодняшний день
-        this.propDate ? this.date = this.propDate : this.today()
+        this.date = this.propDate ? this.propDate : this.today()
 
         //Ставим английский по умолчанию
         this.changeLanguage('eng')
